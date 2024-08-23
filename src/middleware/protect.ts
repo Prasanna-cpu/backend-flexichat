@@ -30,7 +30,7 @@ export const protectRoute = async (req: express.Request, res: express.Response, 
 
         // Verify and decode the token
         const decoded = jwt.verify(token, process.env.JWT_TOKEN!) as DecodedToken;
-        console.log("Decoded token:", decoded);
+
 
         // Check if the token is valid
         if (!decoded || !decoded.id) {
