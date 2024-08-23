@@ -1,0 +1,12 @@
+{
+  "watch": ["src"],
+  "ext": "ts",
+  "exec": "ts-node src/index.ts",
+  "verbose": true,
+  "events": {
+    "start": "node -e \"console.log(new Date().toISOString() + ' - nodemon started')\"",
+    "restart": "node -e \"console.log(new Date().toISOString() + ' - nodemon restarted due to changes')\"",
+    "crash": "node -e \"console.log(new Date().toISOString() + ' - nodemon crashed')\"",
+    "exit": "node -e \"console.log(new Date().toISOString() + ' - nodemon exited')\""
+  }
+}
