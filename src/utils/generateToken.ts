@@ -1,23 +1,42 @@
 import jwt from "jsonwebtoken";
 import express from "express";
-import {Types} from "mongoose"
+import { Types } from "mongoose";
 import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
+const secret = process.env.JWT_TOKEN;
 
-const secret = process.env.JWT_TOKEN; // Make sure this matches the variable name in your .env file
-console.log(secret);
+const age=1000*60*60*24*7
 
-export function generateToken(userId: Types.ObjectId, res: express.Response) {
+export function generateToken(userId:Types.ObjectId, res: express.Response) {
+    console.log(secret)
+
     try {
         if (typeof secret === "string") {
-            const token = jwt.sign({ id: userId }, secret, { expiresIn: '18d' });
-            res.cookie("jwt", token, {
-                maxAge: 18 * 24 * 60 * 60 * 1000, // 18 days
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production'
+            const token = jwt.sign({userId}, secret, {
+                expiresIn: age,
+
             });
+
+
+
+            res.cookie("token",token,{
+                maxAge: age,
+                httpOnly: true,
+                secure: process.env.NODE_ENV != 'development', // Only send over HTTPS in production
+                sameSite: "strict", // Adjust if needed
+            })
+
+
+            // if(res.getHeader("Set-Cookie")){
+            //     console.log('Set-Cookie header:', res.getHeader('Set-Cookie'));
+            //     console.log("Cookies formed")
+            // }
+            // else{
+            //     console.log("Cookies not formed")
+            // }
+
 
         } else {
             throw new Error("JWT_TOKEN is not defined");

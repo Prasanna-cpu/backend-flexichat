@@ -118,7 +118,7 @@ export const register=async(req:express.Request, res:express.Response)=>{
 
 export const logout=async(req:express.Request, res:express.Response)=>{
     try{
-        res.cookie("jwt",{},{maxAge:0})
+        res.cookie("jwt", '', { maxAge: 0, path: '/' });
         res.status(200).json({
             "message":"Logged out"
         })
