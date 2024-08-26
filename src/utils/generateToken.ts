@@ -10,7 +10,7 @@ const secret = process.env.JWT_TOKEN;
 const age=1000*60*60*24*7
 
 export function generateToken(userId:Types.ObjectId, res: express.Response) {
-    console.log(secret)
+    // console.log(secret)
 
     try {
         if (typeof secret === "string") {

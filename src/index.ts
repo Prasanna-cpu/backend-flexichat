@@ -6,6 +6,7 @@ import connectToDB from "./database/Connect";
 import messageRoutes from "./routes/message.routes";
 import userRoutes from "./routes/user.routes";
 import cors from "cors";
+import {app,server} from "./socket/socket";
 
 
 dotenv.config()
@@ -20,7 +21,6 @@ const uri=process.env.MONGO_URI
 
 
 
-const app = express()
 
 
 app.use(express.urlencoded({ extended: true }))
@@ -68,7 +68,7 @@ app.get("/",(req:express.Request,res:express.Response)=>{
 
 connectToDB(uri).then(r => console.log("connected to db successfully"))
 
-app.listen(port,()=>{
+server.listen(port,()=>{
     console.log(`http://localhost:${port}`)
 })
 
